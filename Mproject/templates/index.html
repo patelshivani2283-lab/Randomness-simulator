@@ -1,0 +1,170 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Randomness Simulator — Upgraded</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="light">  <!-- default light; scripts toggle -->
+<nav class="nav">
+    <div class="brand">Randomness Simulator</div>
+    <div class="nav-actions">
+        <button id="theme-toggle" class="btn small">Dark</button>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="card">
+        <h2>Generate Distribution</h2>
+
+        <form method="POST" id="main-form">
+            <div class="row">
+                <div class="col">
+                    <label>Mode</label>
+                    <select name="mode" id="mode-select">
+                        <option value="single">Single</option>
+                        <option value="compare">Compare (2)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Block for distribution 1 -->
+            <div class="row dist-block">
+                <div class="col">
+                    <label>Distribution #1</label>
+                    <select name="dist1" id="dist1">
+                        <option value="uniform">Uniform</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="binomial">Binomial</option>
+                        <option value="poisson">Poisson</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Sample size</label>
+                    <input type="number" name="size1" value="500" min="10" />
+                </div>
+            </div>
+
+            <!-- Parameters for dist1 -->
+            <div id="params1" class="params">
+                <!-- uniform -->
+                <div class="param-row" data-for="uniform">
+                    <label>Low</label><input name="low1" type="number" step="0.1" value="0.0" />
+                    <label>High</label><input name="high1" type="number" step="0.1" value="1.0" />
+                </div>
+                <!-- normal -->
+                <div class="param-row" data-for="normal">
+                    <label>Mean</label><input name="mean1" type="number" step="0.1" value="0.0" />
+                    <label>Std Dev</label><input name="std1" type="number" step="0.1" value="1.0" />
+                </div>
+                <!-- binomial -->
+                <div class="param-row" data-for="binomial">
+                    <label>Trials (n)</label><input name="n1" type="number" value="10" />
+                    <label>p (0-1)</label><input name="p1" type="number" step="0.01" value="0.5" />
+                </div>
+                <!-- poisson -->
+                <div class="param-row" data-for="poisson">
+                    <label>Lambda (λ)</label><input name="lam1" type="number" step="0.1" value="4.0" />
+                </div>
+            </div>
+
+            <!-- Compare block (hidden by default) -->
+            <div id="compare-block" class="compare hidden">
+                <hr />
+                <h3>Distribution #2 (for comparison)</h3>
+
+                <div class="row dist-block">
+                    <div class="col">
+                        <label>Distribution #2</label>
+                        <select name="dist2" id="dist2">
+                            <option value="uniform">Uniform</option>
+                            <option value="normal">Normal</option>
+                            <option value="binomial">Binomial</option>
+                            <option value="poisson">Poisson</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Sample size</label>
+                        <input type="number" name="size2" value="500" min="10" />
+                    </div>
+                </div>
+
+                <div id="params2" class="params">
+                    <div class="param-row" data-for="uniform">
+                        <label>Low</label><input name="low2" type="number" step="0.1" value="0.0" />
+                        <label>High</label><input name="high2" type="number" step="0.1" value="1.0" />
+                    </div>
+                    <div class="param-row" data-for="normal">
+                        <label>Mean</label><input name="mean2" type="number" step="0.1" value="0.0" />
+                        <label>Std Dev</label><input name="std2" type="number" step="0.1" value="1.0" />
+                    </div>
+                    <div class="param-row" data-for="binomial">
+                        <label>Trials (n)</label><input name="n2" type="number" value="10" />
+                        <label>p (0-1)</label><input name="p2" type="number" step="0.01" value="0.5" />
+                    </div>
+                    <div class="param-row" data-for="poisson">
+                        <label>Lambda (λ)</label><input name="lam2" type="number" step="0.1" value="4.0" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row actions">
+                <button class="btn primary" type="submit">Generate</button>
+                <button class="btn ghost" type="reset">Reset</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Output Section -->
+    <section class="card output">
+        {% if graph %}
+            <div class="output-grid">
+                <div class="graph-card">
+                    <h3>Distribution #1</h3>
+                    <img src="{{ graph }}" alt="graph" class="graph" />
+                    {% if stats %}
+                        <div class="stats">
+                            {% for k, v in stats.items() %}
+                                <div class="stat">
+                                    <div class="stat-key">{{ k }}</div>
+                                    <div class="stat-val">{{ v }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if compare_mode and graph2 %}
+                <div class="graph-card">
+                    <h3>Distribution #2</h3>
+                    <img src="{{ graph2 }}" alt="graph2" class="graph" />
+                    {% if stats2 %}
+                        <div class="stats">
+                            {% for k, v in stats2.items() %}
+                                <div class="stat">
+                                    <div class="stat-key">{{ k }}</div>
+                                    <div class="stat-val">{{ v }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <p class="muted">No result yet. Choose parameters and click Generate.</p>
+        {% endif %}
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div>Randomness Simulator</div>
+    <div class="muted">Tip: use compare mode to see differences side-by-side</div>
+</footer>
+
+<script src="/static/scripts.js"></script>
+</body>
+</html>
