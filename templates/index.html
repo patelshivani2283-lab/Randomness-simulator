@@ -36,14 +36,14 @@
                     <label>Distribution #1</label>
                     <select name="dist1" id="dist1">
                         <option value="uniform">Uniform</option>
-                        <option value="normal" selected>Normal</option>
+                        <option value="normal" >Normal</option>
                         <option value="binomial">Binomial</option>
                         <option value="poisson">Poisson</option>
                     </select>
                 </div>
                 <div class="col">
                     <label>Sample size</label>
-                    <input type="number" name="size1" value="500" min="10" />
+                    <input type="number" name="size1" value="500" min="10" id = "samp" />
                 </div>
             </div>
 
@@ -51,22 +51,22 @@
             <div id="params1" class="params">
                 <!-- uniform -->
                 <div class="param-row" data-for="uniform">
-                    <label>Low</label><input name="low1" type="number" step="0.1" value="0.0" />
-                    <label>High</label><input name="high1" type="number" step="0.1" value="1.0" />
+                    <label>Low</label><input name="low1" type="number" step="0.1" value="0.0" id = "brd" />
+                    <label>High</label><input name="high1" type="number" step="0.1" value="1.0" id = "brd" />
                 </div>
                 <!-- normal -->
                 <div class="param-row" data-for="normal">
-                    <label>Mean</label><input name="mean1" type="number" step="0.1" value="0.0" />
-                    <label>Std Dev</label><input name="std1" type="number" step="0.1" value="1.0" />
+                    <label>Mean</label><input name="mean1" type="number" step="0.1" value="0.0" id = "brd" />
+                    <label>Std Dev</label><input name="std1" type="number" step="0.1" value="1.0" id = "brd" />
                 </div>
                 <!-- binomial -->
                 <div class="param-row" data-for="binomial">
-                    <label>Trials (n)</label><input name="n1" type="number" value="10" />
-                    <label>p (0-1)</label><input name="p1" type="number" step="0.01" value="0.5" />
+                    <label>Trials (n)</label><input name="n1" type="number" value="10"  id = "brd" />
+                    <label>p (0-1)</label><input name="p1" type="number" step="0.01" value="0.5" id = "brd" />
                 </div>
                 <!-- poisson -->
                 <div class="param-row" data-for="poisson">
-                    <label>Lambda (λ)</label><input name="lam1" type="number" step="0.1" value="4.0" />
+                    <label>Lambda (λ)</label><input name="lam1" type="number" step="0.1" value="4.0" id = "brd" />
                 </div>
             </div>
 
@@ -87,25 +87,25 @@
                     </div>
                     <div class="col">
                         <label>Sample size</label>
-                        <input type="number" name="size2" value="500" min="10" />
+                        <input type="number" name="size2" value="500" min="10" id = "samp2" />
                     </div>
                 </div>
 
                 <div id="params2" class="params">
                     <div class="param-row" data-for="uniform">
-                        <label>Low</label><input name="low2" type="number" step="0.1" value="0.0" />
-                        <label>High</label><input name="high2" type="number" step="0.1" value="1.0" />
+                        <label>Low</label><input name="low2" type="number" step="0.1" value="0.0" id = "brd"/>
+                        <label>High</label><input name="high2" type="number" step="0.1" value="1.0" id = "brd" />
                     </div>
                     <div class="param-row" data-for="normal">
-                        <label>Mean</label><input name="mean2" type="number" step="0.1" value="0.0" />
-                        <label>Std Dev</label><input name="std2" type="number" step="0.1" value="1.0" />
+                        <label>Mean</label><input name="mean2" type="number" step="0.1" value="0.0" id = "brd" />
+                        <label>Std Dev</label><input name="std2" type="number" step="0.1" value="1.0" id = "brd" />
                     </div>
                     <div class="param-row" data-for="binomial">
-                        <label>Trials (n)</label><input name="n2" type="number" value="10" />
-                        <label>p (0-1)</label><input name="p2" type="number" step="0.01" value="0.5" />
+                        <label>Trials (n)</label><input name="n2" type="number" value="10"  id = "brd"/>
+                        <label>p (0-1)</label><input name="p2" type="number" step="0.01" value="0.5" id = "brd" />
                     </div>
                     <div class="param-row" data-for="poisson">
-                        <label>Lambda (λ)</label><input name="lam2" type="number" step="0.1" value="4.0" />
+                        <label>Lambda (λ)</label><input name="lam2" type="number" step="0.1" value="4.0" id = "brd" />
                     </div>
                 </div>
             </div>
@@ -113,6 +113,7 @@
             <div class="row actions">
                 <button class="btn primary" type="submit">Generate</button>
                 <button class="btn ghost" type="reset">Reset</button>
+
             </div>
         </form>
     </section>
